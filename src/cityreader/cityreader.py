@@ -25,18 +25,19 @@ class City:
         self.lon = lon
 
     def __str__(self):
-        return '({} {} {})'.format(self.name, self.lat, self.lon)
+        return "({}, {}, {})".format(self.name, self.lat, self.lon)
 
 def cityreader(cities=[]):
     # TODO Implement the functionality to read from the 'cities.csv' file
     # For each city record, create a new City instance and add it to the
     # `cities` list
-    reader = csv.DictReader(open('cities.csv'), 'r')
+    with open('cities.csv', 'r') as f:
+        reader = csv.DictReader(f)
 
-    for row in reader:
-        name, lat, lon = row['city'], row['lat'], row['lon']
-        city = City(name, lat, lon)
-        cities.append(city)
+        for row in reader:
+            name, lat, lon = row['city'], row['lat'], row['lng']
+            city = City(name, float(lat), float(lon))
+            cities.append(city)
 
     return cities
 
